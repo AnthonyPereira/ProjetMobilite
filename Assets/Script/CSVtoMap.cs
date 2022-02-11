@@ -6,10 +6,11 @@ using System.IO;
 public class CSVtoMap : MonoBehaviour
 {
     // Start is called before the first frame update
-   [SerializeField] public string lvl = "lvl1";
+   [SerializeField] public string lvl;
    List<List<string>> level;
 
     void Start(){
+        lvl = "lvl1";
         ReadCSVFile();
         SpawnMap();
     }
@@ -19,11 +20,11 @@ public class CSVtoMap : MonoBehaviour
         
     }
 
-    public static void ReadSCVFile(){
+    public void ReadCSVFile(){
         string[] lines = File.ReadAllLines("../map/"+lvl);
         int i = 0;
         foreach(string line in lines){
-            level.Add(List<string>);
+            level.Add(new List<string>());
             string[] columns = line.Split(',');
             foreach(string column in columns){
                 level[i].Add(column);
@@ -32,23 +33,23 @@ public class CSVtoMap : MonoBehaviour
         }
     }
     
-    public static void SpawnMap(){
+    public void SpawnMap(){
         foreach(List<string> line in level){
             if(line[0] == "pos"){
                 //spawn player at line[1], line[2]
             }
             foreach(string col in line){
                 switch(col){
-                    case '0':
+                    case "0":
                         //spawn trou
                         break;
-                    case '1':
+                    case "1":
                         //spawn chemin
                         break;
-                    case '2':
+                    case "2":
                         //spawn mur
                         break;
-                    case '3':
+                    case "3":
                         //spawn victory
                     default:
                         // error
