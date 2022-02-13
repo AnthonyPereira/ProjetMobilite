@@ -49,13 +49,14 @@ public class CSVtoMap : MonoBehaviour
                         //spawn trou
                         break;
                     case "1":
-                        //spawn chemin
+                        SpawnWay(x,y);
                         break;
                     case "2":
                         SpawnWall(x,y);
                         break;
                     case "3":
-                        //spawn victory
+                        MoveVictoryBox(x,y);
+                        break;
                     default:
                         // error
                         break;
@@ -68,8 +69,21 @@ public class CSVtoMap : MonoBehaviour
 
     public void SpawnWall(int x,int y){
         GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        wall.transform.position = new Vector3(y, 0.5f, x);
         GameObject a = Instantiate(wall) as GameObject;
         a.transform.position=new Vector3(y, 0.5f, x);
+    }
+
+    public void SpawnWay(int x, int y){
+        GameObject way = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        way.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
+        GameObject a = Instantiate(way) as GameObject;
+        a.transform.position=new Vector3(y, -1f, x);
+    }
+
+    public void MoveVictoryBox(int x, int y){
+        GameObject[] VictoryBox = GameObject.FindGameObjectsWithTag("VictoryBox");
+        VictoryBox[0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        VictoryBox[0].transform.position = new Vector3(y, -1f, x);
+
     }
 }
