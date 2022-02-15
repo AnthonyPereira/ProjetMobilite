@@ -21,6 +21,7 @@ public class MouvementBall : MonoBehaviour
 
         dir.x = -Input.acceleration.y;
         dir.z = Input.acceleration.x;
+        dir.y = -0.2f;
 
         if (dir.sqrMagnitude > 1)
             dir.Normalize();

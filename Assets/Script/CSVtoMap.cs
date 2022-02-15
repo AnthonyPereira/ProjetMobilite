@@ -7,10 +7,16 @@ public class CSVtoMap : MonoBehaviour
 {
     [SerializeField] public string lvl;
     [SerializeField] public GameObject parent;
+
+    [SerializeField] public GameObject Hole;
+    [SerializeField] public GameObject Ground;
+
+
     List<List<string>> level = new List<List<string>>();
 
     int levelIndex = 1;
     int nbLevels;
+    int SizeX, SizeY;
 
     void Start()
     {
@@ -39,6 +45,8 @@ public class CSVtoMap : MonoBehaviour
         ClearLevels();
         ReadCSVFile();
         SpawnMap();
+        SizeX = 0;
+        SizeY = 0;
     }
 
     public void NextLevels()
@@ -66,6 +74,10 @@ public class CSVtoMap : MonoBehaviour
         {
             List<string> addingList = new List<string>();
             string[] columns = line.Split(',');
+            if(columns.Length > SizeX)
+            {
+                SizeX = columns.Length;
+            }
             foreach(string column in columns)
             {
                 addingList.Add(column);
@@ -73,17 +85,21 @@ public class CSVtoMap : MonoBehaviour
             level.Add(addingList);
             ++i;
         }
+        SizeY = i;
     }
     
     public void SpawnMap()
     {
-        int x, y=0;
-        foreach(List<string> line in level)
+        float x, y=0;
+        SizeX = SizeX / 2;
+        SizeY = SizeY / 2;
+
+        foreach (List<string> line in level)
         {
             if(line[0] == "pos")
             {
                 GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-                player[0].transform.position = new Vector3(float.Parse(line[1]), 0f, float.Parse(line[2]));
+                player[0].transform.position = new Vector3(float.Parse(line[1])-SizeY, 0f, float.Parse(line[2])-SizeX);
                 //spawn player at line[1], line[2]
                 //SpawnPlayer(int.Parse(line[1]), int.Parse(line[2]));
             }
@@ -95,16 +111,16 @@ public class CSVtoMap : MonoBehaviour
                     switch (col)
                     {
                         case "0":
-                            //spawn trou
+                            SpawnHole(x - SizeX, y - SizeY);
                             break;
                         case "1":
-                            SpawnWay(x, y);
+                            SpawnWay(x-SizeX, y-SizeY);
                             break;
                         case "2":
-                            SpawnWall(x, y);
+                            SpawnWall(x - SizeX, y - SizeY);
                             break;
                         case "3":
-                            MoveVictoryBox(x, y);
+                            MoveVictoryBox(x - SizeX, y - SizeY);
                             break;
                         default:
                             // error
@@ -117,7 +133,7 @@ public class CSVtoMap : MonoBehaviour
         }
     }
 
-    public void SpawnWall(int x,int y)
+    public void SpawnWall(float x,float y)
     {
         GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         wall.transform.position = new Vector3(y, 0.5f, x);
@@ -126,17 +142,19 @@ public class CSVtoMap : MonoBehaviour
         //a.transform.position=new Vector3(y, 0.5f, x);
     }
 
-    public void SpawnWay(int x, int y)
+    public void SpawnHole(float x, float y)
     {
-        GameObject way = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        way.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
-        way.transform.position = new Vector3(y, -0.5f, x);
-        way.transform.SetParent(parent.transform);
-        //GameObject a = Instantiate(way) as GameObject;
-        //a.transform.position=new Vector3(y, -0.5f, x);
+        GameObject a = Instantiate(Hole);
+        a.transform.position=new Vector3(y, -0.5f, x);
     }
 
-    public void MoveVictoryBox(int x, int y)
+    public void SpawnWay(float x, float y)
+    {
+        GameObject a = Instantiate(Ground) ;
+        a.transform.position=new Vector3(y, -0.5f, x);
+    }
+
+    public void MoveVictoryBox(float x, float y)
     {
         GameObject[] VictoryBox = GameObject.FindGameObjectsWithTag("VictoryBox");
         VictoryBox[0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
@@ -144,7 +162,7 @@ public class CSVtoMap : MonoBehaviour
         SpawnWay(x, y);
     }
 
-    public void SpawnVictoryBox(int x, int y)
+    public void SpawnVictoryBox(float x, float y)
     {
         GameObject victoryBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
         victoryBox.GetComponent<BoxCollider>().isTrigger = true;
@@ -155,7 +173,7 @@ public class CSVtoMap : MonoBehaviour
         SpawnWay(x, y);
     }
 
-    public void SpawnPlayer(int x, int y)
+    public void SpawnPlayer(float x, float y)
     {
         GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         player.tag = "Player";
