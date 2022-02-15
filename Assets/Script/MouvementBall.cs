@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MouvementBall : MonoBehaviour
 {
-    [SerializeField] float SpeedBall = 10.0f;
+    [SerializeField] public float speedBall = 10.0f;
 
-    Rigidbody RigidbodyBall;
+    Rigidbody rigidbodyBall;
 
     // Start is called before the first frame update
     void Start()
     {
-        RigidbodyBall = GetComponent<Rigidbody>();
+        rigidbodyBall = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -25,6 +25,6 @@ public class MouvementBall : MonoBehaviour
         if (dir.sqrMagnitude > 1)
             dir.Normalize();
 
-        RigidbodyBall.velocity = dir * SpeedBall;
+        rigidbodyBall.velocity = dir * speedBall;
     }
 }
