@@ -16,6 +16,12 @@ public class ManagerCanvas : MonoBehaviour
         generateLevels.GetComponent<CSVtoMap>().NextLevels();
     }
 
+    public void RestartLevels()
+    {
+        canvasLose.enabled = false;
+        generateLevels.GetComponent<CSVtoMap>().LoadLevels();
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -24,5 +30,10 @@ public class ManagerCanvas : MonoBehaviour
     public void Victory()
     {
        canvasVictory.enabled = true;
+    }
+
+    public void Lose()
+    {
+        canvasLose.enabled = true;
     }
 }

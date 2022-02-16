@@ -138,20 +138,20 @@ public class CSVtoMap : MonoBehaviour
         GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         wall.transform.position = new Vector3(y, 0.5f, x);
         wall.transform.SetParent(parent.transform);
-        //GameObject a = Instantiate(wall) as GameObject;
-        //a.transform.position=new Vector3(y, 0.5f, x);
     }
 
     public void SpawnHole(float x, float y)
     {
         GameObject a = Instantiate(Hole);
         a.transform.position=new Vector3(y, -0.5f, x);
+        a.transform.SetParent(parent.transform);
     }
 
     public void SpawnWay(float x, float y)
     {
         GameObject a = Instantiate(Ground) ;
         a.transform.position=new Vector3(y, -0.5f, x);
+        a.transform.SetParent(parent.transform);
     }
 
     public void MoveVictoryBox(float x, float y)
