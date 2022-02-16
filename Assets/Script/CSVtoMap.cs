@@ -20,28 +20,15 @@ public class CSVtoMap : MonoBehaviour
 
     void Start()
     {
-        ReadLevels();
+        nbLevels = Resources.LoadAll("map/").Length;
         LoadLevels();
     }
 
-    private void ReadLevels()
-    {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "/Assets/map/");
-        int nbFile = di.GetFiles().Length;
-        Debug.Log("NB File in <" + di.FullName + ">: " + nbFile);
-        foreach (FileInfo fi in di.GetFiles())
-        {
-            Debug.Log("- " + fi.FullName);
-            if (fi.FullName.Contains(".meta")) --nbFile;
-        }
-        Debug.Log("NB File in <" + di.FullName + ">: " + nbFile);
-
-        nbLevels = nbFile;
-    }
+    
 
     public void LoadLevels()
     {
-        if (lvl == "") lvl = "lvl" + levelIndex + ".csv";
+        if (lvl == "") lvl = "lvl" + levelIndex;
         ClearLevels();
         ReadCSVFile();
         SpawnMap();
@@ -68,12 +55,25 @@ public class CSVtoMap : MonoBehaviour
 
     public void ReadCSVFile()
     {
-        string[] lines = File.ReadAllLines("Assets/map/"+lvl);
+        Debug.Log("Iciv");
+
+        TextAsset csv =new TextAsset();
+        try
+        {
+            csv = Resources.Load<TextAsset>("map/"+lvl);
+
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("erreur");
+        }
+
+        string[] lines = csv.text.Split(new char[] { '\n' });
         int i = 0;
         foreach(string line in lines)
         {
             List<string> addingList = new List<string>();
-            string[] columns = line.Split(',');
+            string[] columns = line.Split(new char[] { ',' });
             if(columns.Length > SizeX)
             {
                 SizeX = columns.Length;
