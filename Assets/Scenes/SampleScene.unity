@@ -1491,6 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedBall: 10
+  CanvasManager: {fileID: 300825921}
 --- !u!54 &1625330680
 Rigidbody:
   m_ObjectHideFlags: 0

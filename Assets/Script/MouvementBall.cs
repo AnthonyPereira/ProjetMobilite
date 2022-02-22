@@ -5,6 +5,7 @@ using UnityEngine;
 public class MouvementBall : MonoBehaviour
 {
     [SerializeField] public float speedBall = 10.0f;
+    [SerializeField] public GameObject CanvasManager;
 
     Rigidbody rigidbodyBall;
     float baseX;
@@ -32,16 +33,22 @@ public class MouvementBall : MonoBehaviour
             Debug.Log("X: " + baseX + ", Y: " + baseY);
         }
         */
-
         Vector3 dir = Vector3.zero;
+        if(!CanvasManager.GetComponent<ManagerCanvas>().canvasVictory.enabled){
 
-        dir.x = -Input.acceleration.y - baseY;
-        dir.z = Input.acceleration.x - baseX;
-        dir.y = -0.5f;
 
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
+            dir.x = -Input.acceleration.y - baseY;
+            dir.z = Input.acceleration.x - baseX;
+            dir.y = -0.5f;
 
-        rigidbodyBall.velocity = dir * speedBall;
+            if (dir.sqrMagnitude > 1)
+                dir.Normalize();
+
+            rigidbodyBall.velocity = dir * speedBall;
+        }
+        else{
+            rigidbodyBall.velocity = dir;
+        }
+        
     }
 }
