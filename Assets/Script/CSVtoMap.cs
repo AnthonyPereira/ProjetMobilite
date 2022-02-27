@@ -9,6 +9,8 @@ public class CSVtoMap : MonoBehaviour
     [SerializeField] public GameObject parent;
 
     [SerializeField] public GameObject Hole;
+    [SerializeField] public GameObject Wall;
+
     [SerializeField] public GameObject Ground;
 
 
@@ -91,8 +93,8 @@ public class CSVtoMap : MonoBehaviour
     public void SpawnMap()
     {
         float x, y=0;
-        SizeX = SizeX / 2;
-        SizeY = SizeY / 2;
+        SizeX = SizeX / 2 -1;
+        SizeY = SizeY / 2 -1;
 
         foreach (List<string> line in level)
         {
@@ -135,7 +137,7 @@ public class CSVtoMap : MonoBehaviour
 
     public void SpawnWall(float x,float y)
     {
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall = Instantiate(Wall);
         wall.transform.position = new Vector3(y, 0.5f, x);
         wall.transform.SetParent(parent.transform);
     }
