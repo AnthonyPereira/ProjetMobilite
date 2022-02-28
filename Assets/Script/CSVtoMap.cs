@@ -23,6 +23,10 @@ public class CSVtoMap : MonoBehaviour
     void Start()
     {
         nbLevels = Resources.LoadAll("map/").Length;
+        if (CrossSceneInformation.Info != null)
+        {
+            lvl = "lvl" + CrossSceneInformation.Info;
+        }
         LoadLevels();
     }
 
@@ -57,8 +61,6 @@ public class CSVtoMap : MonoBehaviour
 
     public void ReadCSVFile()
     {
-        Debug.Log("Iciv");
-
         TextAsset csv =new TextAsset();
         try
         {
