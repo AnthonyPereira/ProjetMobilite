@@ -458,7 +458,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 300825923}
         m_TargetAssemblyTypeName: ManagerCanvas, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a45d1fcb7a6a7c54eba2302791f90d84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e5dc342842a00b448804e0a55b37bad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1563,7 +1563,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 300825923}
         m_TargetAssemblyTypeName: ManagerCanvas, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
