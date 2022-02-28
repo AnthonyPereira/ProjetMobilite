@@ -41,9 +41,22 @@ public class ManagerCanvas : MonoBehaviour
     }
 
     public void LaunchLevel(int num)
-    {
-        CrossSceneInformation.Info = num.ToString();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    {   
+        
+        if(!PlayerPrefs.HasKey("lvl")){
+            PlayerPrefs.SetInt("lvl", 1);
+        }
+        if(num == 0){
+            num = PlayerPrefs.GetInt("lvl");
+        }
+        if(num <= PlayerPrefs.GetInt("lvl")){
+            CrossSceneInformation.Info = num.ToString();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+        else{
+            SceneManager.LoadScene(0);
+        }
+        
     }
 
     public void NextLevels()

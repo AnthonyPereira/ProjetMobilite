@@ -27,6 +27,9 @@ public class CSVtoMap : MonoBehaviour
         {
             lvl = "lvl" + CrossSceneInformation.Info;
         }
+        if(!PlayerPrefs.HasKey("lvl")){
+            PlayerPrefs.SetInt("lvl", 1);
+        }
         LoadLevels();
     }
 
@@ -44,7 +47,13 @@ public class CSVtoMap : MonoBehaviour
     {
         levelIndex++;
         lvl = "";
-        if(levelIndex <= nbLevels) LoadLevels();
+        if(levelIndex <= nbLevels) {
+            if(PlayerPrefs.GetInt("lvl") < levelIndex){
+                PlayerPrefs.SetInt("lvl", levelIndex);
+            }
+            LoadLevels();
+        }
+        
     }
 
     public void ClearLevels()
