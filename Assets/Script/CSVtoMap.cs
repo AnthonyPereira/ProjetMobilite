@@ -30,8 +30,6 @@ public class CSVtoMap : MonoBehaviour
         LoadLevels();
     }
 
-    
-
     public void LoadLevels()
     {
         if (lvl == "") lvl = "lvl" + levelIndex;
