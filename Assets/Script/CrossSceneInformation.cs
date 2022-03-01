@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class CrossSceneInformation
 {
-    public static string Info { get; set; }
+    public static int Info { get; set; }
 }

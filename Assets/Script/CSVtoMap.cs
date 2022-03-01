@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,68 +6,33 @@ using System.IO;
 
 public class CSVtoMap : MonoBehaviour
 {
-    [SerializeField] public string lvl;
-    [SerializeField] public GameObject parent;
+    public string lvl;
+    [SerializeField] public GameObject ParentLvl;
 
     [SerializeField] public GameObject Hole;
     [SerializeField] public GameObject Wall;
 
     [SerializeField] public GameObject Ground;
 
-
-    List<List<string>> level = new List<List<string>>();
-
-    int levelIndex = 1;
-    int nbLevels;
     int SizeX, SizeY;
 
-    void Start()
+    public void LoadLevels(int levelIndex)
     {
-        nbLevels = Resources.LoadAll("map/").Length;
-        if (CrossSceneInformation.Info != null)
-        {
-            lvl = "lvl" + CrossSceneInformation.Info;
-        }
-        if(!PlayerPrefs.HasKey("lvl")){
-            PlayerPrefs.SetInt("lvl", 1);
-        }
-        LoadLevels();
-    }
-
-    public void LoadLevels()
-    {
-        if (lvl == "") lvl = "lvl" + levelIndex;
+        lvl = "lvl" + levelIndex;
         ClearLevels();
-        ReadCSVFile();
-        SpawnMap();
-        SizeX = 0;
-        SizeY = 0;
-    }
-
-    public void NextLevels()
-    {
-        levelIndex++;
-        lvl = "";
-        if(levelIndex <= nbLevels) {
-            if(PlayerPrefs.GetInt("lvl") < levelIndex){
-                PlayerPrefs.SetInt("lvl", levelIndex);
-            }
-            LoadLevels();
-        }
-        
+        ReadCSVAndGenerate();
     }
 
     public void ClearLevels()
     {
-        Transform transform = parent.transform;
+        Transform transform = ParentLvl.transform;
         for (int i = 0; i < transform.childCount; ++i)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
-        level.Clear();
     }
 
-    public void ReadCSVFile()
+    public void ReadCSVAndGenerate()
     {
         TextAsset csv =new TextAsset();
         try
@@ -79,68 +45,56 @@ public class CSVtoMap : MonoBehaviour
             Debug.Log("erreur");
         }
 
+        float x = 0, y = 0;
+        bool isMoveBall = false;
+        bool isMoveVictory = false;
+
         string[] lines = csv.text.Split(new char[] { '\n' });
-        int i = 0;
         foreach(string line in lines)
         {
-            List<string> addingList = new List<string>();
             string[] columns = line.Split(new char[] { ',' });
-            if(columns.Length > SizeX)
-            {
-                SizeX = columns.Length;
-            }
-            foreach(string column in columns)
-            {
-                addingList.Add(column);
-            }
-            level.Add(addingList);
-            ++i;
-        }
-        SizeY = i;
-    }
-    
-    public void SpawnMap()
-    {
-        float x, y=0;
-        SizeX = SizeX / 2 -1;
-        SizeY = SizeY / 2 -1;
 
-        foreach (List<string> line in level)
-        {
-            if(line[0] == "pos")
+            if(columns[0] == "size")
             {
-                GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-                player[0].transform.position = new Vector3(float.Parse(line[1])-SizeY, 0f, float.Parse(line[2])-SizeX);
-                //spawn player at line[1], line[2]
-                //SpawnPlayer(int.Parse(line[1]), int.Parse(line[2]));
+                SizeX =  int.Parse(columns[1]) /2 -1;
+                SizeY = int.Parse(columns[2]) /2 -1;
+                continue;
             }
-            else
+
+            x = 0;
+            foreach(string col in columns)
             {
-                x = 0;
-                foreach (string col in line)
+                switch (col)
                 {
-                    switch (col)
-                    {
-                        case "0":
-                            SpawnHole(x - SizeX, y - SizeY);
-                            break;
-                        case "1":
-                            SpawnWay(x-SizeX, y-SizeY);
-                            break;
-                        case "2":
-                            SpawnWall(x - SizeX, y - SizeY);
-                            break;
-                        case "3":
-                            MoveVictoryBox(x - SizeX, y - SizeY);
-                            break;
-                        default:
-                            // error
-                            break;
-                    }
-                    ++x;
+                    case "0":
+                        SpawnHole(x - SizeX, y - SizeY);
+                        break;
+                    case "O":
+                        SpawnWay(x-SizeX, y-SizeY);
+                        break;
+                    case "X":
+                        SpawnWall(x - SizeX, y - SizeY);
+                        break;
+                    case "3":
+                        MoveVictoryBox(x - SizeX, y - SizeY);
+                        isMoveVictory = true;
+                        break;
+                    case "1":
+                        MovePlayer(x - SizeX, y - SizeY);
+                        isMoveBall = true;
+                        break;
+                    default:
+                        break;
                 }
-                ++y;
+                ++x;
             }
+            ++y;
+        }
+
+        if(!isMoveBall || !isMoveVictory)
+        {
+            Debug.LogError("Il manque la Ball ou la Victory Box dans la génération du niveaux");
+            throw new Exception("Il manque la Ball ou la Victory Box dans la génération du niveaux");
         }
     }
 
@@ -148,21 +102,21 @@ public class CSVtoMap : MonoBehaviour
     {
         GameObject wall = Instantiate(Wall);
         wall.transform.position = new Vector3(y, 0.5f, x);
-        wall.transform.SetParent(parent.transform);
+        wall.transform.SetParent(ParentLvl.transform);
     }
 
     public void SpawnHole(float x, float y)
     {
         GameObject a = Instantiate(Hole);
         a.transform.position=new Vector3(y, -0.5f, x);
-        a.transform.SetParent(parent.transform);
+        a.transform.SetParent(ParentLvl.transform);
     }
 
     public void SpawnWay(float x, float y)
     {
         GameObject a = Instantiate(Ground) ;
         a.transform.position=new Vector3(y, -0.5f, x);
-        a.transform.SetParent(parent.transform);
+        a.transform.SetParent(ParentLvl.transform);
     }
 
     public void MoveVictoryBox(float x, float y)
@@ -180,19 +134,14 @@ public class CSVtoMap : MonoBehaviour
         victoryBox.AddComponent<VictoryBox>();
         victoryBox.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         victoryBox.transform.position = new Vector3(y, 0.5f, x);
-        victoryBox.transform.SetParent(parent.transform);
+        victoryBox.transform.SetParent(ParentLvl.transform);
         SpawnWay(x, y);
     }
 
-    public void SpawnPlayer(float x, float y)
+    public void MovePlayer(float x, float y)
     {
-        GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        player.tag = "Player";
-        player.AddComponent<Rigidbody>();
-        MouvementBall mV = player.AddComponent<MouvementBall>();
-        mV.speedBall = 10;
-        player.transform.position = new Vector3(y, 0.5f, x);
-        player.transform.SetParent(parent.transform);
-        //SpawnWay(x, y);
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        player[0].transform.position = new Vector3(y, 0f, x);
+        SpawnWay(x, y);
     }
 }

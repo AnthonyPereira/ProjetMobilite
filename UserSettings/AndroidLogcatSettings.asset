@@ -1,13 +1,44 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "f5dfa3eb",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "f5dfa3eb",
+        "name": "com.DefaultCompany.ProjetMobilite",
+        "processId": 32349,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 1966,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 32352,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.unity3d.mobileremote",
+            "processId": 6476,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.unity3d.mobileremote",
+            "processId": 6487,
+            "exited": false
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 32349,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,9 +72,20 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },

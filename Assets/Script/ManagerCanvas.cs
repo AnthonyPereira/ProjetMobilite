@@ -50,7 +50,7 @@ public class ManagerCanvas : MonoBehaviour
             num = PlayerPrefs.GetInt("lvl");
         }
         if(num <= PlayerPrefs.GetInt("lvl")){
-            CrossSceneInformation.Info = num.ToString();
+            CrossSceneInformation.Info = num;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
         else{
@@ -62,13 +62,13 @@ public class ManagerCanvas : MonoBehaviour
     public void NextLevels()
     {
         reloadCanvas();
-        generateLevels.GetComponent<CSVtoMap>().NextLevels();
+        generateLevels.GetComponent<DataLevels>().NextLevels();
     }
 
     public void RestartLevels()
     {
         reloadCanvas();
-        generateLevels.GetComponent<CSVtoMap>().LoadLevels();
+        generateLevels.GetComponent<DataLevels>().ReloadLevels();
     }
 
     public void BackToMenu()
