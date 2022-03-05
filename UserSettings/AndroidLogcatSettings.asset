@@ -1,25 +1,13 @@
 {
     "m_SelectedDeviceId": "f5dfa3eb",
     "m_SelectedPackage": {
-        "deviceId": "f5dfa3eb",
-        "name": "com.DefaultCompany.ProjetMobilite",
-        "processId": 2295,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "f5dfa3eb",
-            "name": "com.DefaultCompany.ProjetMobilite",
-            "processId": 1966,
-            "exited": true
-        },
-        {
-            "deviceId": "f5dfa3eb",
-            "name": "com.DefaultCompany.ProjetMobilite",
-            "processId": 32352,
-            "exited": true
-        },
         {
             "deviceId": "f5dfa3eb",
             "name": "com.unity3d.mobileremote",
@@ -30,18 +18,30 @@
             "deviceId": "f5dfa3eb",
             "name": "com.unity3d.mobileremote",
             "processId": 6487,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "f5dfa3eb",
             "name": "com.DefaultCompany.ProjetMobilite",
             "processId": 32349,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "f5dfa3eb",
             "name": "com.DefaultCompany.ProjetMobilite",
             "processId": 2295,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 2292,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.unity3d.mobileremote",
+            "processId": 26078,
             "exited": false
         }
     ],

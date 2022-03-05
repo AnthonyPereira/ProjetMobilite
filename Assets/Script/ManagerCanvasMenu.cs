@@ -50,6 +50,7 @@ public class ManagerCanvasMenu : MonoBehaviour
 
     public void LoadLevel(int NumLevel)
     {
+        Debug.Log(NumLevel);
         if(!PlayerPrefs.HasKey("lvl")) PlayerPrefs.SetInt("lvl", 1);
 
         int NumMax = PlayerPrefs.GetInt("lvl");
@@ -109,8 +110,10 @@ public class ManagerCanvasMenu : MonoBehaviour
             GameObject ButtonTmp = ListButtonLevels[IndexButton].gameObject;
             if(ButtonTmp)
             {
+                int Num = Index;
                 ButtonTmp.SetActive(true);
-                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Index);});
+                ListButtonLevels[IndexButton].onClick.RemoveAllListeners();
+                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Num+1);});
             }
 
             ++Index;
