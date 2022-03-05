@@ -17,7 +17,7 @@ public class ManagerCanvasMenu : MonoBehaviour
 
     private int NumTabLevels;
 
-    private string[] ListLevels;
+    //private string[] ListLevels;
     private int NbLevels;
 
     // Start is called before the first frame update
@@ -27,8 +27,8 @@ public class ManagerCanvasMenu : MonoBehaviour
         FileManager FileManager = GameObject.Find("FileManager").GetComponent<FileManager>();
         if(FileManager)
         {
-            ListLevels = FileManager.GetListLevels();
-            NbLevels = ListLevels.Length;
+            //ListLevels = FileManager.GetListLevels();
+            NbLevels = FileManager.GetListLevels();
         }
     }
 
@@ -100,17 +100,17 @@ public class ManagerCanvasMenu : MonoBehaviour
 
         while(Index < NbLevels && Index < MaxLvlInTab)
         {
-            string NameLevels = ListLevels[Index].Split(new char[] {'/', '\\'})[3];
+            //string NameLevels = ListLevels[Index].Split(new char[] {'/', '\\'})[3];
             
-            string NumLvl = NameLevels.Split(new string[]{"lvl", "."}, System.StringSplitOptions.None)[1];
+            //string NumLvl = NameLevels.Split(new string[]{"lvl", "."}, System.StringSplitOptions.None)[1];
 
-            Debug.Log(NameLevels + " -> " + NumLvl);
+            //Debug.Log(NameLevels + " -> " + NumLvl);
 
             GameObject ButtonTmp = ListButtonLevels[IndexButton].gameObject;
             if(ButtonTmp)
             {
                 ButtonTmp.SetActive(true);
-                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Convert.ToInt32(NumLvl));});
+                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Index);});
             }
 
             ++Index;

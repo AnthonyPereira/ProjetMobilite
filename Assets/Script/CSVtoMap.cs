@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class CSVtoMap : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class CSVtoMap : MonoBehaviour
         }
         catch (System.Exception)
         {
-            Debug.Log("erreur");
+            SceneManager.LoadScene("MainMenu");
         }
 
         float x = 0, y = 0;

@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class FileManager : MonoBehaviour
 {
-    public string[] GetListLevels()
+    public int GetListLevels()
     {
-        return Directory.GetFiles("Assets/Resources/map", "*.csv");
+        //return Directory.GetFiles("Assets/Resources/map", "*.csv");
+        return 10;
     }
 }
