@@ -56,8 +56,8 @@ public class CSVtoMap : MonoBehaviour
 
             if(columns[0] == "size")
             {
-                SizeX =  int.Parse(columns[1]) /2 -1;
-                SizeY = int.Parse(columns[2]) /2 -1;
+                SizeX =  (int.Parse(columns[1]) /2) ;
+                SizeY = (int.Parse(columns[2]) /2) ;
                 continue;
             }
 
@@ -102,6 +102,7 @@ public class CSVtoMap : MonoBehaviour
     {
         GameObject wall = Instantiate(Wall);
         wall.transform.position = new Vector3(y, 0.5f, x);
+
         wall.transform.SetParent(ParentLvl.transform);
     }
 
@@ -122,8 +123,7 @@ public class CSVtoMap : MonoBehaviour
     public void MoveVictoryBox(float x, float y)
     {
         GameObject[] VictoryBox = GameObject.FindGameObjectsWithTag("VictoryBox");
-        VictoryBox[0].GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-        VictoryBox[0].transform.position = new Vector3(y, 0.5f, x);
+        VictoryBox[0].transform.position = new Vector3(y, 0.2f, x);
         SpawnWay(x, y);
     }
 
