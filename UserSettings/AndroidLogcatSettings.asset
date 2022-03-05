@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "f5dfa3eb",
         "name": "com.DefaultCompany.ProjetMobilite",
-        "processId": 32349,
+        "processId": 2295,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -36,6 +36,12 @@
             "deviceId": "f5dfa3eb",
             "name": "com.DefaultCompany.ProjetMobilite",
             "processId": 32349,
+            "exited": false
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 2295,
             "exited": false
         }
     ],

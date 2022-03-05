@@ -14,11 +14,6 @@ public class ManagerCanvas : MonoBehaviour
     [SerializeField] public Canvas canvasPause;
     [SerializeField] public Canvas canvasGame;
 
-    [Space(10)]
-    [Header("Menu Canvas")]
-    [SerializeField] public Canvas canvasMain;
-    [SerializeField] public Canvas canvasLevels;
-
     private bool IsPause = false;
 
     private void reloadCanvas()
@@ -38,25 +33,6 @@ public class ManagerCanvas : MonoBehaviour
     void Start()
     {
         reloadCanvas();
-    }
-
-    public void LaunchLevel(int num)
-    {   
-        
-        if(!PlayerPrefs.HasKey("lvl")){
-            PlayerPrefs.SetInt("lvl", 1);
-        }
-        if(num == 0){
-            num = PlayerPrefs.GetInt("lvl");
-        }
-        if(num <= PlayerPrefs.GetInt("lvl")){
-            CrossSceneInformation.Info = num;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-        }
-        else{
-            SceneManager.LoadScene(0);
-        }
-        
     }
 
     public void NextLevels()
