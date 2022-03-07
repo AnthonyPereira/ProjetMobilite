@@ -8,7 +8,6 @@ public class FileManager : MonoBehaviour
 {
     public int GetListLevels()
     {
-        //return Directory.GetFiles("Assets/Resources/map", "*.csv");
-        return 10;
+        return Resources.LoadAll("map/").Length;
     }
 }

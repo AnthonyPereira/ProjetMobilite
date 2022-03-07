@@ -13,6 +13,9 @@ public class ManagerCanvasMenu : MonoBehaviour
     [SerializeField] public Button NextButton;
     [SerializeField] public Button PreviousButton;
     [Space(10)]
+    [SerializeField] public Sprite StarComplete;
+    [SerializeField] public Sprite StarEmpty;
+    [Space(10)]
     [SerializeField] public List<Button> ListButtonLevels;
 
     private int NumTabLevels;
@@ -30,6 +33,11 @@ public class ManagerCanvasMenu : MonoBehaviour
             //ListLevels = FileManager.GetListLevels();
             NbLevels = FileManager.GetListLevels();
         }
+    }
+
+    public void ResetData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     public void InitCanvas()
@@ -110,14 +118,34 @@ public class ManagerCanvasMenu : MonoBehaviour
             GameObject ButtonTmp = ListButtonLevels[IndexButton].gameObject;
             if(ButtonTmp)
             {
-                int Num = Index;
+                int Num = Index + 1;
                 ButtonTmp.SetActive(true);
                 ListButtonLevels[IndexButton].onClick.RemoveAllListeners();
-                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Num+1);});
+                ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Num);});
+
+                string NameData = "lvl" + Num;
+                if(PlayerPrefs.HasKey(NameData))
+                {
+                    string Name = ListButtonLevels[IndexButton].name;
+                    int NbStar = PlayerPrefs.GetInt(NameData);
+                    GenerateStar(Name, NbStar);
+                }
             }
 
             ++Index;
             ++IndexButton;
+        }
+    }
+
+    private void GenerateStar(string Name, int NbStar)
+    {
+        for(int i = 1; i <= NbStar; ++i) {
+            GameObject Etoile = GameObject.Find(Name + "/Etoile" + i);
+            if(Etoile)
+            {
+                Image Img = Etoile.GetComponent<Image>();
+                Img.sprite = StarComplete;
+            }
         }
     }
 
@@ -128,6 +156,18 @@ public class ManagerCanvasMenu : MonoBehaviour
 
         for(int i = 0; i < 8; i++)
         {
+            // Clear Star in Levels
+            string Name = ListButtonLevels[i].name;
+            for(int j = 1; j <= 3; ++j) {
+                Debug.Log(Name + "/Etoile" + j);
+                GameObject Etoile = GameObject.Find(Name + "/Etoile" + j);
+                if(Etoile)
+                {
+                    Image Img = Etoile.GetComponent<Image>();
+                    Img.sprite = StarEmpty;
+                }
+            }
+
             GameObject ButtonTmp = ListButtonLevels[i].gameObject;
             if(ButtonTmp) ButtonTmp.SetActive(false);
         }

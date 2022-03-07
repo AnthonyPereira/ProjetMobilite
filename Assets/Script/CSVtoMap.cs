@@ -12,14 +12,18 @@ public class CSVtoMap : MonoBehaviour
 
     [SerializeField] public GameObject Hole;
     [SerializeField] public GameObject Wall;
+    [SerializeField] public GameObject Coin;
 
     [SerializeField] public GameObject Ground;
 
     int SizeX, SizeY;
 
+    public int NbCoins;
+
     public void LoadLevels(int levelIndex)
     {
         lvl = "lvl" + levelIndex;
+        NbCoins = 0;
         ClearLevels();
         ReadCSVAndGenerate();
     }
@@ -36,14 +40,12 @@ public class CSVtoMap : MonoBehaviour
     public void ReadCSVAndGenerate()
     {
         TextAsset csv =new TextAsset();
-        try
-        {
-            csv = Resources.Load<TextAsset>("map/"+lvl);
-
-        }
-        catch (System.Exception)
+        csv = Resources.Load<TextAsset>("map/"+lvl);
+        
+        if(!csv)
         {
             SceneManager.LoadScene("MainMenu");
+            return;
         }
 
         float x = 0, y = 0;
@@ -84,6 +86,9 @@ public class CSVtoMap : MonoBehaviour
                         MovePlayer(x - SizeX, y - SizeY);
                         isMoveBall = true;
                         break;
+                    case "2":
+                        SpawnCoins(x - SizeX, y - SizeY);
+                        break;
                     default:
                         break;
                 }
@@ -94,8 +99,8 @@ public class CSVtoMap : MonoBehaviour
 
         if(!isMoveBall || !isMoveVictory)
         {
-            Debug.LogError("Il manque la Ball ou la Victory Box dans la génération du niveaux");
-            throw new Exception("Il manque la Ball ou la Victory Box dans la génération du niveaux");
+            Debug.LogError("Il manque la Ball ou la Victory Box dans la generation du niveaux");
+            throw new Exception("Il manque la Ball ou la Victory Box dans la generation du niveaux");
         }
     }
 
@@ -103,7 +108,6 @@ public class CSVtoMap : MonoBehaviour
     {
         GameObject wall = Instantiate(Wall);
         wall.transform.position = new Vector3(y, 0.5f, x);
-
         wall.transform.SetParent(ParentLvl.transform);
     }
 
@@ -121,21 +125,20 @@ public class CSVtoMap : MonoBehaviour
         a.transform.SetParent(ParentLvl.transform);
     }
 
+    public void SpawnCoins(float x,float y)
+    {
+        GameObject coin = Instantiate(Coin);
+        coin.transform.position = new Vector3(y, 0.5f, x);
+        coin.transform.SetParent(ParentLvl.transform);
+        ++NbCoins;
+
+        SpawnWay(x, y);
+    }
+
     public void MoveVictoryBox(float x, float y)
     {
         GameObject[] VictoryBox = GameObject.FindGameObjectsWithTag("VictoryBox");
         VictoryBox[0].transform.position = new Vector3(y, 0.2f, x);
-        SpawnWay(x, y);
-    }
-
-    public void SpawnVictoryBox(float x, float y)
-    {
-        GameObject victoryBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        victoryBox.GetComponent<BoxCollider>().isTrigger = true;
-        victoryBox.AddComponent<VictoryBox>();
-        victoryBox.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-        victoryBox.transform.position = new Vector3(y, 0.5f, x);
-        victoryBox.transform.SetParent(ParentLvl.transform);
         SpawnWay(x, y);
     }
 

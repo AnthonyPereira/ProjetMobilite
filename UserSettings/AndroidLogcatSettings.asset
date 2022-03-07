@@ -10,24 +10,6 @@
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "f5dfa3eb",
-            "name": "com.unity3d.mobileremote",
-            "processId": 6476,
-            "exited": true
-        },
-        {
-            "deviceId": "f5dfa3eb",
-            "name": "com.unity3d.mobileremote",
-            "processId": 6487,
-            "exited": true
-        },
-        {
-            "deviceId": "f5dfa3eb",
-            "name": "com.DefaultCompany.ProjetMobilite",
-            "processId": 32349,
-            "exited": true
-        },
-        {
-            "deviceId": "f5dfa3eb",
             "name": "com.DefaultCompany.ProjetMobilite",
             "processId": 2295,
             "exited": true
@@ -42,6 +24,24 @@
             "deviceId": "f5dfa3eb",
             "name": "com.unity3d.mobileremote",
             "processId": 26078,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 2294,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.DefaultCompany.ProjetMobilite",
+            "processId": 2293,
+            "exited": true
+        },
+        {
+            "deviceId": "f5dfa3eb",
+            "name": "com.unity3d.mobileremote",
+            "processId": 29086,
             "exited": false
         }
     ],

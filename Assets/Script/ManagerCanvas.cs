@@ -8,7 +8,6 @@ public class ManagerCanvas : MonoBehaviour
 {
     [SerializeField] public GameObject generateLevels;
     [Space(10)]
-    [Header("Game Canvas")]
     [SerializeField] public Canvas canvasVictory;
     [SerializeField] public Canvas canvasLose;
     [SerializeField] public Canvas canvasPause;
@@ -50,8 +49,6 @@ public class ManagerCanvas : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
-        //GameObject.Find("MainMenu").SetActive(true);
-        //GameObject.Find("LvlMenu").SetActive(false);
     }
 
     public void QuitGame()
@@ -64,6 +61,8 @@ public class ManagerCanvas : MonoBehaviour
         Time.timeScale = 0;
         canvasVictory.enabled = true;
         canvasGame.enabled = false;
+
+        generateLevels.GetComponent<DataLevels>().Victory();
     }
 
     public void Lose()

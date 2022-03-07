@@ -11,10 +11,13 @@ public class DataLevels : MonoBehaviour
     int nbLevels;
     int SizeX, SizeY;
 
+    int NbCoinCollected;
+
     void Start()
     {
         GenerateLevel = gameObject.GetComponent<CSVtoMap>();
 
+        NbCoinCollected = 0;
         nbLevels = Resources.LoadAll("map/").Length;
         if (CrossSceneInformation.Info > 0)
         {
@@ -26,20 +29,51 @@ public class DataLevels : MonoBehaviour
         GenerateLevel.LoadLevels(LevelIndex);
     }
 
+    private int CalculScore()
+    {
+        int Score = 1;
+        int NbCoinsLvl = GenerateLevel.NbCoins;
+        if(NbCoinCollected >= NbCoinsLvl/2) ++Score;
+        if(NbCoinCollected == NbCoinsLvl) ++Score;
+
+        Debug.Log(NbCoinsLvl + " -> " + NbCoinCollected);
+
+        return Score;
+    }
+
+    public void Victory()
+    {
+        int Score = CalculScore();
+
+        string NameData = "lvl" + LevelIndex;
+        if(!PlayerPrefs.HasKey(NameData)) PlayerPrefs.SetInt(NameData, Score);
+        else
+        {
+            if(Score > PlayerPrefs.GetInt(NameData)) PlayerPrefs.SetInt(NameData, Score);
+        }
+
+        if(PlayerPrefs.GetInt("lvl") < LevelIndex+1){
+            PlayerPrefs.SetInt("lvl", LevelIndex+1);
+        }
+    }
+
     public void NextLevels()
     {
+        NbCoinCollected = 0;
         LevelIndex++;
         if(LevelIndex <= nbLevels) {
-            if(PlayerPrefs.GetInt("lvl") < LevelIndex){
-                PlayerPrefs.SetInt("lvl", LevelIndex);
-            }
             GenerateLevel.LoadLevels(LevelIndex);
         }
     }
 
     public void ReloadLevels()
     {
+        NbCoinCollected = 0;
         GenerateLevel.LoadLevels(LevelIndex);
     }
 
+    public void AddCoins()
+    {
+        ++NbCoinCollected;
+    }
 }
