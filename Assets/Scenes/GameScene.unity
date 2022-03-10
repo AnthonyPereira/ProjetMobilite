@@ -740,8 +740,9 @@ MonoBehaviour:
   ParentLvl: {fileID: 463205905}
   Hole: {fileID: 130810648568821601, guid: f5b14e7f49511c84e8d2d9e064329ad5, type: 3}
   Wall: {fileID: 7903747549608440700, guid: 711357963b8081248ae7175d38869c95, type: 3}
-  Coin: {fileID: 7349797226470055112, guid: 83da7ea168b04584bbf70b32607e43d2, type: 3}
+  Coin: {fileID: 5869132156708414626, guid: 78c0faac6d4785b4dbce47f770e49617, type: 3}
   Ground: {fileID: 6614455789102758086, guid: 05d17068a683c564096a33ec3ef0cd94, type: 3}
+  NbCoins: 0
 --- !u!4 &573553433
 Transform:
   m_ObjectHideFlags: 0
