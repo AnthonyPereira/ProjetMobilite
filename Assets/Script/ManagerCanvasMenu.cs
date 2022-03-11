@@ -19,20 +19,13 @@ public class ManagerCanvasMenu : MonoBehaviour
     [SerializeField] public List<Button> ListButtonLevels;
 
     private int NumTabLevels;
-
-    //private string[] ListLevels;
     private int NbLevels;
 
     // Start is called before the first frame update
     void Start()
     {
         InitCanvas();
-        FileManager FileManager = GameObject.Find("FileManager").GetComponent<FileManager>();
-        if(FileManager)
-        {
-            //ListLevels = FileManager.GetListLevels();
-            NbLevels = FileManager.GetListLevels();
-        }
+        NbLevels = Resources.LoadAll<TextAsset>("map/").Length;
     }
 
     public void ResetData()
@@ -52,13 +45,19 @@ public class ManagerCanvasMenu : MonoBehaviour
     {
         if(!PlayerPrefs.HasKey("lvl")) PlayerPrefs.SetInt("lvl", 1);
 
-        CrossSceneInformation.Info = PlayerPrefs.GetInt("lvl");
-        SceneManager.LoadScene("GameScene");
+        int LvlContinu = PlayerPrefs.GetInt("lvl");
+        Debug.Log(LvlContinu);
+
+        if(LvlContinu <= NbLevels)
+        {
+            CrossSceneInformation.Info = LvlContinu;
+            SceneManager.LoadScene("GameScene");
+        }
+        else ChoiceLevel();        
     }
 
     public void LoadLevel(int NumLevel)
     {
-        Debug.Log(NumLevel);
         if(!PlayerPrefs.HasKey("lvl")) PlayerPrefs.SetInt("lvl", 1);
 
         int NumMax = PlayerPrefs.GetInt("lvl");

@@ -6,8 +6,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class CSVtoMap : MonoBehaviour
-{
-    public string lvl;
+{    
     [SerializeField] public GameObject ParentLvl;
 
     [SerializeField] public GameObject Hole;
@@ -19,6 +18,8 @@ public class CSVtoMap : MonoBehaviour
     int SizeX, SizeY;
 
     public int NbCoins;
+
+    private string lvl;
 
     public void LoadLevels(int levelIndex)
     {
@@ -39,8 +40,7 @@ public class CSVtoMap : MonoBehaviour
 
     public void ReadCSVAndGenerate()
     {
-        TextAsset csv =new TextAsset();
-        csv = Resources.Load<TextAsset>("map/"+lvl);
+        TextAsset csv = Resources.Load<TextAsset>("map/"+lvl);
         
         if(!csv)
         {

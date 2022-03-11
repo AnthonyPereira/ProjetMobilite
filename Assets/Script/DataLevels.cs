@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DataLevels : MonoBehaviour
 {
-    
     CSVtoMap GenerateLevel;
 
     int LevelIndex = 1;
@@ -36,8 +35,6 @@ public class DataLevels : MonoBehaviour
         if(NbCoinCollected >= NbCoinsLvl/2) ++Score;
         if(NbCoinCollected == NbCoinsLvl) ++Score;
 
-        Debug.Log(NbCoinsLvl + " -> " + NbCoinCollected);
-
         return Score;
     }
 
@@ -61,9 +58,7 @@ public class DataLevels : MonoBehaviour
     {
         NbCoinCollected = 0;
         LevelIndex++;
-        if(LevelIndex <= nbLevels) {
-            GenerateLevel.LoadLevels(LevelIndex);
-        }
+        GenerateLevel.LoadLevels(LevelIndex);
     }
 
     public void ReloadLevels()
