@@ -108,12 +108,6 @@ public class ManagerCanvasMenu : MonoBehaviour
 
         while(Index < NbLevels && Index < MaxLvlInTab)
         {
-            //string NameLevels = ListLevels[Index].Split(new char[] {'/', '\\'})[3];
-            
-            //string NumLvl = NameLevels.Split(new string[]{"lvl", "."}, System.StringSplitOptions.None)[1];
-
-            //Debug.Log(NameLevels + " -> " + NumLvl);
-
             GameObject ButtonTmp = ListButtonLevels[IndexButton].gameObject;
             if(ButtonTmp)
             {
@@ -122,10 +116,17 @@ public class ManagerCanvasMenu : MonoBehaviour
                 ListButtonLevels[IndexButton].onClick.RemoveAllListeners();
                 ListButtonLevels[IndexButton].onClick.AddListener(delegate{LoadLevel(Num);});
 
+                string Name = ListButtonLevels[IndexButton].name;
+                GameObject Numero = GameObject.Find(Name + "/Numero");
+                if(Numero)
+                {
+                    Text Txt = Numero.GetComponent<Text>();
+                    Txt.text = Num.ToString();
+                }
+
                 string NameData = "lvl" + Num;
                 if(PlayerPrefs.HasKey(NameData))
                 {
-                    string Name = ListButtonLevels[IndexButton].name;
                     int NbStar = PlayerPrefs.GetInt(NameData);
                     GenerateStar(Name, NbStar);
                 }
